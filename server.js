@@ -10,7 +10,7 @@ const path = require('path');
 const { exec } = require('child_process');
 const { createClient } = require('@deepgram/sdk');
 const app = express();
-require('dotenv').config(); 
+require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
@@ -26,7 +26,7 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage })
-let generatedFileName = '';
+
 app.post('/upload', upload.single('file'), async (req, res) => {
     console.log(req.body);
     console.log(req.file);
@@ -46,7 +46,10 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         const srtFilePath = generateSRT(textWithTimeline);
 
         await addSubtitlesToVideo(videoPath, outputVideoPath, audioPath, srtFilePath);
-        generatedFileName = `subtitled_${Date.now()}.mp4`;
+
+        // fs.unlinkSync(videoPath); // Delete the uploaded video file
+        // fs.unlinkSync(audioPath); // Delete the extracted audio file
+        // fs.unlinkSync(srtFilePath);
 
         res.json({ videoPath: outputVideoPath });
 
@@ -187,9 +190,10 @@ function addSubtitlesToVideo(videoPath, outputVideoPath, audioPath, srtFilePath)
 
 }
 
-app.listen(3001, () => {
-    console.log("Server is Running");
-})
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 // env filr
-// file structure 
+// file structure
 // delete thesubtitle video 
