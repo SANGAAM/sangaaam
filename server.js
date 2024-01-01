@@ -175,6 +175,7 @@ function addSubtitlesToVideo(videoPath, outputVideoPath, audioPath, srtFilePath)
                 '-map', '0:v:0',
                 '-map', '1:a:0',
                 '-map', '2:s:0',
+                '-vf', 'subtitles=' + srtFilePath + ':force_style=\'Alignment=10\''
             ])
             .output(outputVideoPath)
             .on('end', () => {
