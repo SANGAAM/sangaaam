@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const { load } = require('@pspdfkit/nodejs');
 const libre = require('libreoffice-convert');
 libre.convertAsync = require('util').promisify(libre.convert);
 require('dotenv').config()

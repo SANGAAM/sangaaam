@@ -17,7 +17,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.post('/upload', uploadController.upload.single('file'), uploadController.uploadFile);
 app.get('/download', downloadController.downloadVideo);
 
-const PORT=process.env.PORT||3000;
+const PORT=process.env.PORT||3001;
 app.listen(PORT, () => {
     console.log(`Server is Running on port ${PORT}`);
 });
